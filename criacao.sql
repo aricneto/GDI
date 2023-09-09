@@ -1,5 +1,6 @@
 create table monstro( 
-    cmf varchar(3), 
+    cmf varchar(3),
+    nome varchar(25) not null,
     anos_ativos int, 
     salario float(2), 
     end_quarto varchar(4), 
