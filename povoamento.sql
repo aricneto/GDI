@@ -1,114 +1,32 @@
-insert into monstro (cmf, anos_ativos, salario, end_quarto, end_predio) 
-    values ("aaa", 2);
+insert into monstro (cmf, nome, anos_ativos, salario, end_quarto, end_predio) values ("aaa", "josney", 2, 2500.50, "E5", "P1");
+insert into monstro (cmf, nome, anos_ativos, salario, end_quarto, end_predio) values ("bbb", "claudio", 5, 2100.00, "E5", "P1");
 
-create table sala( 
-    numero int primary key, 
-    localizacao_bloco varchar(10), 
-    localizacao_andar int 
-);
+insert into sala (numero, localizacao_bloco, localizacao_andar) values (5, "B1", 1);
 
-create table equipamento( 
-    numero_armario int primary key, 
-    nome varchar(25) 
-);
+insert into equipamento (numero_armario, nome) values (1, "bajulador");
 
-create table extrator_de_gritos( 
-    numero_serie varchar(25) primary key, 
-    capacidade int, 
-    volume_preenchido int
-);
+insert into extrator_de_gritos (numero_serie, capacidade, volume_preenchido) values ("EXG-800-354", 0, 0);
 
-create table crianca( 
-    cpf varchar(3) primary key, 
-    nome varchar(25) not null, 
-    data_nascimente date 
-);
+insert into crianca (cpf, nome, data_nascimente) values ("aaa", "pedrinho", "1980-01-01");
 
-create table porta( 
-    codigo varchar(3) primary key, 
-    material varchar(10), 
-    cor varchar(10) 
-);
+insert into porta (codigo, material, cor) values ("111", "metal", "verde");
 
-create table quarto( 
-    codigo varchar(3), 
-    cor_parede varchar(10), 
-    metragem int, 
-    constraint quarto_pk primary key(codigo), 
-    constraint quarto_portas_fk foreign key (codigo) references porta on delete cascade 
-);
+insert into quarto (codigo, cor_parede, metragem) values ("111", "azul", 45);
 
-create table medos(  
-    cpf varchar(3),  
-    medo varchar(3),  
-    constraint medo_pk primary key (cpf, medo),  
-    constraint medo_crianca_fk foreign key (cpf) references crianca on delete cascade  
-);
+insert into medo (cpf, medo) values ("aaa", "palhaço");
 
-create table gratificacao( 
-    cmf varchar(3), 
-    datahora timestamp, 
-    valor float(2), 
-    constraint gratificacao_pk primary key (cmf, datahora), 
-    constraint gratificacao_monstro foreign key (cmf) references monstro(cmf) on delete cascade 
-);
+insert into gratificacao (cmf, datahora, valor) values ("aaa", "2023-05-20 12:30:12", 100.50);
 
-create table tecnico( 
-    cmf varchar(3) primary key, 
-    graduacao varchar(25), 
-    constraint assustador_monstro foreign key (cmf) references monstro(cmf) on delete cascade 
-);
+insert into tecnico (cmf, graduacao) values ("bbb", "administraçao");
 
-create table treinar( 
-    cmf_treinado varchar(3), 
-    cmf_treinador varchar(3), 
-    constraint treinar_pk primary key(cmf_treinado, cmf_treinador), 
-    constraint assustador_monstro_treinado foreign key (cmf_treinado) references monstro(cmf) on delete cascade, 
-    constraint assustador_monstro_treinador foreign key (cmf_treinador) references monstro(cmf) on delete cascade 
-);
+insert into treinar (cmf_treinado, cmf_treinador) values ("aaa", "bbb");
 
-create table praticar( 
-    cmf varchar(3), 
-    numero int, 
-    numero_armario int, 
-    constraint praticar_pk primary key (cmf, numero, numero_armario), 
-    constraint praticar_monstro foreign key (cmf) references monstro(cmf) on delete cascade, 
-    constraint praticar_sala foreign key (numero) references sala(numero) on delete cascade, 
-    constraint praticar_equipamento foreign key(numero_armario) references equipamento(numero_armario) on delete cascade 
-);
+insert into praticar (cmf, numero_sala, numero_armario) values ("aaa", 5, 1);
 
-create table assustar( 
-    cpf varchar(3), 
-    cmf varchar(3), 
-    data_susto date, 
-    constraint assustar_pk primary key (cpf, cmf, data_susto), 
-    constraint assustar_monstro foreign key (cmf) references monstro(cmf) on delete cascade, 
-    constraint assustar_crianca foreign key (cpf) references crianca(cpf) on delete cascade 
-);
+insert into assustar (cpf, cmf, data_susto) values ("aaa", "aaa", "2023-04-01");
 
-create table assustador_acessa_porta( 
-    cmf varchar(3), 
-    codigo varchar(3), 
-    constraint assustador_acessa_porta_pk primary key (cmf, codigo), 
-    constraint assustador_acessa_porta_monstro_fk foreign key(cmf) references monstro(cmf) on delete cascade, 
-    constraint assustador_acessa_porta_porta_fk foreign key(codigo) references porta(codigo) on delete cascade 
-);
+insert into assustador_acessa_porta (cmf, codigo_porta) values ("aaa", "111");
 
-create table assustador( 
-    cmf varchar(3) primary key, 
-    cmf_supervisor varchar(3) not null, 
-    especialidade varchar(25), 
-    constraint assustador_monstro_fk foreign key(cmf) references monstro(cmf) on delete cascade, 
-    constraint assustador_monstro_supervisor_fk foreign key(cmf_supervisor) references monstro(cmf) on delete cascade 
-);
+insert into assustador (cmf, cmf_supervisor, especialidade) values ("aaa", "bbb", "adolescentes");
 
-create table extrair( 
-    numero_serie varchar(3), 
-    cpf varchar(3), 
-    cmf varchar(3), 
-    data_susto date, 
-    data_extracao date, 
-    constraint extrair_pk primary key (numero_serie, cpf, cmf, data_susto, data_extracao), 
-    constraint extrair_extrator_fk foreign key(numero_serie) references extrator_de_gritos(numero_serie) on delete cascade, 
-    constraint extrair_assustar_fk foreign key(cpf, cmf, data_susto) references assustar(cpf, cmf, data_susto) on delete cascade  
-);
+insert into extrair (numero_serie, cpf, cmf, data_susto, data_extracao) values ("EXG-800-354", "aaa", "aaa", "2023-04-01", "2023-04-01 08:12:00");

@@ -33,8 +33,8 @@ create table crianca(
 
 create table porta( 
     codigo varchar(3) primary key, 
-    material varchar(10), 
-    cor varchar(10) 
+    material varchar(25), 
+    cor varchar(25) 
 );
 
 create table quarto( 
@@ -45,9 +45,9 @@ create table quarto(
     constraint quarto_portas_fk foreign key (codigo) references porta on delete cascade 
 );
 
-create table medos(  
+create table medo(  
     cpf varchar(3),  
-    medo varchar(3),  
+    medo varchar(30),  
     constraint medo_pk primary key (cpf, medo),  
     constraint medo_crianca_fk foreign key (cpf) references crianca on delete cascade  
 );
@@ -76,11 +76,11 @@ create table treinar(
 
 create table praticar( 
     cmf varchar(3), 
-    numero int, 
+    numero_sala int, 
     numero_armario int, 
-    constraint praticar_pk primary key (cmf, numero, numero_armario), 
+    constraint praticar_pk primary key (cmf, numero_sala, numero_armario), 
     constraint praticar_monstro foreign key (cmf) references monstro(cmf) on delete cascade, 
-    constraint praticar_sala foreign key (numero) references sala(numero) on delete cascade, 
+    constraint praticar_sala foreign key (numero_sala) references sala(numero) on delete cascade, 
     constraint praticar_equipamento foreign key(numero_armario) references equipamento(numero_armario) on delete cascade 
 );
 
@@ -95,26 +95,26 @@ create table assustar(
 
 create table assustador_acessa_porta( 
     cmf varchar(3), 
-    codigo varchar(3), 
-    constraint assustador_acessa_porta_pk primary key (cmf, codigo), 
-    constraint assustador_acessa_porta_monstro_fk foreign key(cmf) references monstro(cmf) on delete cascade, 
-    constraint assustador_acessa_porta_porta_fk foreign key(codigo) references porta(codigo) on delete cascade 
+    codigo_porta varchar(3), 
+    constraint assustador_acessa_porta_pk primary key (cmf, codigo_porta), 
+    constraint assustador_acessa_porta_monstro_fk foreign key (cmf) references monstro(cmf) on delete cascade, 
+    constraint assustador_acessa_porta_porta_fk foreign key (codigo_porta) references porta(codigo) on delete cascade 
 );
 
 create table assustador( 
     cmf varchar(3) primary key, 
     cmf_supervisor varchar(3) not null, 
-    especialidade varchar(25), 
+    especialidade varchar(50), 
     constraint assustador_monstro_fk foreign key(cmf) references monstro(cmf) on delete cascade, 
     constraint assustador_monstro_supervisor_fk foreign key(cmf_supervisor) references monstro(cmf) on delete cascade 
 );
 
 create table extrair( 
-    numero_serie varchar(3), 
+    numero_serie varchar(25), 
     cpf varchar(3), 
     cmf varchar(3), 
     data_susto date, 
-    data_extracao date, 
+    data_extracao timestamp, 
     constraint extrair_pk primary key (numero_serie, cpf, cmf, data_susto, data_extracao), 
     constraint extrair_extrator_fk foreign key(numero_serie) references extrator_de_gritos(numero_serie) on delete cascade, 
     constraint extrair_assustar_fk foreign key(cpf, cmf, data_susto) references assustar(cpf, cmf, data_susto) on delete cascade  
