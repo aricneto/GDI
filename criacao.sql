@@ -8,13 +8,13 @@ create table monstro(
 );
 
 create table sala( 
-	numero int primary key, 
+    numero int primary key, 
     localizacao_bloco varchar(10), 
     localizacao_andar int 
 );
 
 create table equipamento( 
-	numero_armario int primary key, 
+    numero_armario int primary key, 
     nome varchar(25) 
 );
 
@@ -25,19 +25,19 @@ create table extrator_de_gritos(
 );
 
 create table crianca( 
-  	cpf varchar(3) primary key, 
+    cpf varchar(3) primary key, 
     nome varchar(25) not null, 
     data_nascimente date 
 );
 
 create table porta( 
-  	codigo varchar(3) primary key, 
+    codigo varchar(3) primary key, 
     material varchar(10), 
     cor varchar(10) 
 );
 
 create table quarto( 
-  	codigo varchar(3), 
+    codigo varchar(3), 
     cor_parede varchar(10), 
     metragem int, 
     constraint quarto_pk primary key(codigo), 
@@ -52,8 +52,8 @@ create table medos(
 );
 
 create table gratificacao( 
-	cmf varchar(3), 
-	datahora timestamp, 
+    cmf varchar(3), 
+    datahora timestamp, 
     valor float(2), 
     constraint gratificacao_pk primary key (cmf, datahora), 
     constraint gratificacao_monstro foreign key (cmf) references monstro(cmf) on delete cascade 
@@ -66,7 +66,7 @@ create table tecnico(
 );
 
 create table treinar( 
-  	cmf_treinado varchar(3), 
+    cmf_treinado varchar(3), 
     cmf_treinador varchar(3), 
     constraint treinar_pk primary key(cmf_treinado, cmf_treinador), 
     constraint assustador_monstro_treinado foreign key (cmf_treinado) references monstro(cmf) on delete cascade, 
@@ -88,7 +88,7 @@ create table assustar(
     cmf varchar(3), 
     data_susto date, 
     constraint assustar_pk primary key (cpf, cmf, data_susto), 
-	constraint assustar_monstro foreign key (cmf) references monstro(cmf) on delete cascade, 
+    constraint assustar_monstro foreign key (cmf) references monstro(cmf) on delete cascade, 
     constraint assustar_crianca foreign key (cpf) references crianca(cpf) on delete cascade 
 );
 
