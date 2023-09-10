@@ -1,2 +1,5 @@
 .settings
 *.db
+generate.py
+pov.sql
+.vscode/settings.json
