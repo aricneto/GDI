@@ -23,14 +23,14 @@
 
 **Assustador** (<ins>CMF</ins>, CMF_Supervisor!, Especialidade)  
     CMF -> Monstro (CMF)  
-    CMF_Supervisor -> Monstro (CMF)
+    CMF_Supervisor -> Tecnico (CMF)
 
 **Técnico** (<ins>CMF</ins>, Graduação)  
     CMF -> Monstro (CMF)
 
 **Treinar** (<ins>CMF_Treinado, CMF_Treinador</ins>)  
-    CMF_Treinado -> Assustador (CMF)  
-    CMF_Treinador -> Tecnico (CMF)
+    CMF_Treinado -> Monstro (CMF)  
+    CMF_Treinador -> Monstro (CMF)
 
 **Praticar** (<ins>CMF, Número, Numero_Armário</ins>)  
     CMF -> Monstro (CMF)  
