@@ -478,3 +478,4 @@ INSERT INTO extrair VALUES ('OYG-780', '668', 'NPF', to_date('2013-11-23', 'YYYY
 INSERT INTO extrair VALUES ('OYG-780', '858', 'VRC', to_date('2011-12-01', 'YYYY-MM-DD'), to_date('2022-10-30 02:16:21', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO extrair VALUES ('IZH-328', '536', 'HBJ', to_date('2012-08-03', 'YYYY-MM-DD'), to_date('2022-10-10 02:31:10', 'yyyy/mm/dd hh24:mi:ss'));
 INSERT INTO extrair VALUES ('NGT-960', '315', 'WUN', to_date('2018-01-17', 'YYYY-MM-DD'), to_date('2023-05-13 05:45:27', 'yyyy/mm/dd hh24:mi:ss'));
+INSERT INTO assustar VALUES ('730', 'RNU', to_date('2011-08-14', 'YYYY-MM-DD'));

@@ -137,3 +137,39 @@ BEGIN
     SET cmf_supervisor = cmf_supervisor
     WHERE cmf = cmf_supervisionado;
 END;
+
+
+-- function para calcular a idade de uma criança
+CREATE OR REPLACE FUNCTION calcular_idade(cpf_in IN VARCHAR2) RETURN NUMBER IS
+    data_nasc DATE;
+    idade NUMBER;
+BEGIN
+    SELECT data_nascimente INTO data_nasc
+    FROM crianca
+    WHERE cpf = cpf_in;
+
+    -- calcular idade em anos
+    idade := FLOOR(MONTHS_BETWEEN(SYSDATE, data_nasc) / 12);
+RETURN idade;
+END;
+
+SELECT cpf, calcular_idade(cpf), nome, data_nascimente
+FROM crianca
+
+-- Busca os monstros que receberam gratificação
+SELECT m.nome
+FROM monstro m
+WHERE EXISTS (
+    SELECT g.cmf
+    FROM gratificacao g
+    WHERE g.cmf = m.cmf
+)
+
+-- Busca todas as crianças com medo de banco de dados que foram assustadas por monstros especializados em dar nota baixa
+SELECT m.nome AS monstro, c.nome AS crianca
+FROM monstro m
+JOIN assustador ass ON m.cmf = ass.cmf
+JOIN assustar a ON m.cmf = a.cmf
+JOIN crianca c ON a.cpf = c.cpf
+JOIN medo me ON c.cpf = me.cpf
+
