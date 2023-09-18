@@ -11,7 +11,7 @@ medos = ["palhaco", "cobra", "redemoinho", "banco de dados", "professor", "nota 
 cores = ("verde", "azul", "vermelho", "preto", "branco", "laranja", "amarelo")
 
 def main():
-    # Specify the number of rows you want to generate for each table
+   
     num_rows = 30
 
     global cmfs, cpfs, numero_series, portas, quartos, equipamentos, numero_armarios, numero_salas, data_sustos
@@ -33,12 +33,11 @@ def main():
     inserts = []
     fake.unique.clear()
 
-    # Generate and print data for Monstro table
     for _ in range(num_rows):
         inserts.append(generate_monstro_data())
     fake.unique.clear()
 
-    # # Generate and print data for Sala table
+   
     for _ in range(num_rows):
         inserts.append(generate_sala_data())
     fake.unique.clear()
@@ -107,7 +106,6 @@ def main():
 def randstr(size=3, chars=string.ascii_uppercase):
     return f"{''.join(random.choice(chars) for _ in range(size))}"
 
-# Function to generate random data for the Monstro table
 def generate_monstro_data():
     cmf = fake.unique.random_element(cmfs)  # Generating a random 3-digit number
     nome = fake.first_name()
@@ -117,80 +115,69 @@ def generate_monstro_data():
     end_predio = fake.random_int(min=1000, max=9999)  # Generating a random 4-digit number
     return f"INSERT INTO monstro VALUES ('{cmf}', '{nome}', {anos_ativos}, {salario}, '{end_quarto}', '{end_predio}');"
 
-# Function to generate random data for the Sala table
 def generate_sala_data():
     numero = fake.unique.random_element(numero_salas)
     localizacao_bloco = fake.random_element(elements=("A", "B", "C", "D", "E"))
     localizacao_andar = fake.random_int(min=1, max=10)
     return f"INSERT INTO sala VALUES ({numero}, '{localizacao_bloco}', {localizacao_andar});"
 
-# Function to generate random data for the Equipamento table
+
 def generate_equipamento_data():
     numero_armario = fake.unique.random_element(numero_armarios)
     nome = fake.random_element(equipamentos)
     return f"INSERT INTO equipamento VALUES ({numero_armario}, '{nome}');"
 
-# Function to generate random data for the Extrator_De_Gritos table
 def generate_extrator_de_gritos_data():
     numero_serie = fake.unique.random_element(numero_series)
     capacidade = fake.random_int(min=1, max=100)
     volume_preenchido = fake.random_int(min=0, max=capacidade)
     return f"INSERT INTO extrator_de_gritos VALUES ('{numero_serie}', {capacidade}, {volume_preenchido});"
 
-# Function to generate random data for the Crianca table
 def generate_crianca_data():
     cpf = fake.unique.random_element(cpfs)
     nome = fake.first_name()
     data_nascimento = fake.date_of_birth(minimum_age=5, maximum_age=12)
     return f"INSERT INTO crianca VALUES ('{cpf}', '{nome}', to_date('{data_nascimento}', 'YYYY-MM-DD'));"
 
-# Function to generate random data for the Porta table
 def generate_porta_data():
     codigo = fake.unique.random_element(portas)
     material = fake.random_element(elements=("Wood", "Metal", "Glass", "Plastic"))
     cor = fake.random_element(cores)
     return f"INSERT INTO porta VALUES ('{codigo}', '{material}', '{cor}');"
 
-# Function to generate random data for the Quarto table
 def generate_quarto_data():
     codigo = fake.unique.random_element(portas)
     cor_parede = fake.random_element(cores)
     metragem = fake.random_int(min=10, max=100)
     return f"INSERT INTO quarto VALUES ('{codigo}', '{cor_parede}', {metragem});"
 
-# Function to generate random data for the Medo table
 def generate_medo_data():
     cpf = fake.random_element(cpfs)
     medo = fake.random_element(medos)
     return f"INSERT INTO medo VALUES ('{cpf}', '{medo}');"
 
-# Function to generate random data for the Gratificacao table
 def generate_gratificacao_data():
     cmf = fake.random_element(cmfs)
     datahora = fake.date_time_between(start_date="-1y", end_date="now")
     valor = round(random.uniform(100, 1000), 2)
     return f"INSERT INTO gratificacao VALUES ('{cmf}', to_date('{datahora}', 'yyyy/mm/dd hh24:mi:ss'), {valor});"
 
-# Function to generate random data for the Tecnico table
 def generate_tecnico_data():
     cmf = fake.random_element(cmfs)
     graduacao = fake.random_element(("administracao", "engenharia", "teoria do susto", "filosofia"))
     return f"INSERT INTO tecnico VALUES ('{cmf}', '{graduacao}');"
 
-# Function to generate random data for the Treinar table
 def generate_treinar_data():
     cmf_treinado = fake.unique.random_element(cmfs)
     cmf_treinador = fake.unique.random_element(cmfs)
     return f"INSERT INTO treinar VALUES ('{cmf_treinado}', '{cmf_treinador}');"
 
-# Function to generate random data for the Praticar table
 def generate_praticar_data():
     cmf = fake.random_element(cmfs)
     numero_sala = fake.random_element(numero_salas)
     numero_armario = fake.random_element(numero_armarios)
     return f"INSERT INTO praticar VALUES ('{cmf}', {numero_sala}, {numero_armario});"
 
-# Function to generate random data for the Assustar table
 def generate_assustar_data():
     cpf = fake.random_element(cpfs)
     cmf = fake.random_element(cmfs)
@@ -199,20 +186,17 @@ def generate_assustar_data():
     assustars.append((cpf, cmf, data_susto))
     return f"INSERT INTO assustar VALUES ('{cpf}', '{cmf}', to_date('{data_susto}', 'YYYY-MM-DD'));"
 
-# Function to generate random data for the Assustador_Acessa_Porta table
 def generate_assustador_acessa_porta_data():
     cmf = fake.random_element(cmfs)
     codigo_porta = fake.random_element(portas)
     return f"INSERT INTO assustador_acessa_porta VALUES ('{cmf}', '{codigo_porta}');"
 
-# Function to generate random data for the Assustador table
 def generate_assustador_data():
     cmf = fake.unique.random_element(cmfs)
     cmf_supervisor = fake.random_element(cmfs)
     especialidade = fake.random_element("crianças", "adolescentes", "terror", "sustos de palhaço", "dar nota baixa", "susto existencial")
     return f"INSERT INTO assustador VALUES ('{cmf}', '{cmf_supervisor}', '{especialidade}');"
 
-# Function to generate random data for the Extrair table
 def generate_extrair_data():
     cpf, cmf, data_susto = fake.unique.random_element(tuple(assustars))
     numero_serie = fake.random_element(numero_series)
