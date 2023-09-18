@@ -46,5 +46,5 @@
     Numero_Serie -> ExtratorDeGritos (Numero_Serie)
 
 **Assustador_Acessa_Porta** (<ins>CMF, Código</ins>)  
-    CMF -> Monstro (CMF)  
+    CMF -> Assustador (CMF)  
     Código -> Porta (Código)

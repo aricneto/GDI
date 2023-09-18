@@ -97,7 +97,7 @@ create table assustador_acessa_porta(
     cmf varchar(3), 
     codigo_porta varchar(3), 
     constraint assustador_acessa_porta_pk primary key (cmf, codigo_porta), 
-    constraint assustador_acessa_porta_monstro_fk foreign key (cmf) references monstro(cmf) on delete cascade, 
+    constraint assustador_acessa_porta_assustador_fk foreign key (cmf) references assustador(cmf) on delete cascade, 
     constraint assustador_acessa_porta_porta_fk foreign key (codigo_porta) references porta(codigo) on delete cascade 
 );
 

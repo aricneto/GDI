@@ -173,3 +173,15 @@ JOIN assustar a ON m.cmf = a.cmf
 JOIN crianca c ON a.cpf = c.cpf
 JOIN medo me ON c.cpf = me.cpf
 
+-- Busca os assustadores que acessaram portas
+SELECT m.nome
+FROM monstro m
+INNER JOIN assustador a on m.cmf = a.cmf
+
+INTERSECT
+
+SELECT m.nome
+FROM monstro m
+INNER JOIN assustador_acessa_porta ap ON m.cmf = ap.cmf
+
+-- Operação de conjuntos
